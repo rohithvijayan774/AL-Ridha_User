@@ -5,13 +5,15 @@ import 'package:flutter/material.dart';
 
 //CAROUSEL
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
   int _SelectedCurrentIndex = 0;
-  final _pages = [HomeContent(), AlRidaMenu(), Accounts()];
+  final _pages = [HomeContent(), AlRidaMenu(), const Accounts(),];
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.black,
-        backgroundColor: Color(0xff911f2a),
+        backgroundColor: const Color(0xff911f2a),
         currentIndex: _SelectedCurrentIndex,
         onTap: (newIndex) {
           setState(() {
@@ -32,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
         // selectedItemColor: Colors.white,
 
         items: [
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             label: 'Home',
             icon: ImageIcon(
               AssetImage(
@@ -40,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             label: 'Menu',
             icon: ImageIcon(
               AssetImage(
@@ -48,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             label: 'Account',
             icon: ImageIcon(
               AssetImage(
@@ -58,10 +60,10 @@ class _HomeScreenState extends State<HomeScreen> {
           )
         ],
         selectedIconTheme:
-            IconThemeData(color: Colors.white), // Set selected icon color
+            const IconThemeData(color: Colors.white), // Set selected icon color
         selectedLabelStyle:
-            TextStyle(color: Colors.white, fontFamily: 'poppins'),
-        unselectedLabelStyle: TextStyle(
+            const TextStyle(color: Colors.white, fontFamily: 'poppins'),
+        unselectedLabelStyle: const TextStyle(
             color: Colors.black,
             fontFamily: 'poppins'), // Set selected label color
       ),

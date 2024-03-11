@@ -86,113 +86,123 @@ class AccountCart extends StatelessWidget {
                               child: Container(
                                 margin: const EdgeInsets.all(5),
                                 // color: Colors.pinkAccent.shade100,
-                                child: ListView.builder(
-                                  itemCount: itemController.cartList.length,
-                                  itemBuilder: (context, index) {
-                                    return Container(
-                                      margin: const EdgeInsets.symmetric(
-                                          vertical: 5),
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          border: Border.all()),
-                                      // height: Hieght*0.7,
-                                      // width: Width-20,
-                                      // color: Colors.pinkAccent.shade100,
-                                      child: Container(
-                                        margin: const EdgeInsets.symmetric(
-                                            horizontal: 5),
-                                        child: Column(
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Text(
-                                                  itemController.cartList[index]
-                                                      .productname,
-                                                  style: const TextStyle(
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.w400),
-                                                ),
-                                                const Spacer(),
-                                                IconButton(
-                                                  onPressed: () {},
-                                                  icon: const ImageIcon(
-                                                    AssetImage(
-                                                      'assets/icons/delete.png',
-                                                    ),
-                                                    size: 18,
-                                                    color: Color(0xff911f2a),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            Row(
-                                              children: [
-                                                Text(
-                                                  itemController.cartList[index]
-                                                      .productDescription,
-                                                  style: const TextStyle(
-                                                      fontSize: 15,
-                                                      fontWeight:
-                                                          FontWeight.w400),
-                                                )
-                                              ],
-                                            ),
-                                            const SizedBox(
-                                              height: 5,
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                const Text(
-                                                  'Price',
-                                                  style: TextStyle(
-                                                      fontSize: 15,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    Image.asset(
-                                                      'assets/icons/rupee-indian.png',
-                                                      width: 15,
-                                                    ),
-                                                    Text(
-                                                        "${itemController.cartList[index].productPrice}",
-                                                        // (price * quantity).toString(),
+                                child: itemController.cartList.isEmpty
+                                    ? const Center(
+                                        child: Text('No items added'),
+                                      )
+                                    : ListView.builder(
+                                        itemCount:
+                                            itemController.cartList.length,
+                                        itemBuilder: (context, index) {
+                                          return Container(
+                                            margin: const EdgeInsets.symmetric(
+                                                vertical: 5),
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                border: Border.all()),
+                                            // height: Hieght*0.7,
+                                            // width: Width-20,
+                                            // color: Colors.pinkAccent.shade100,
+                                            child: Container(
+                                              margin:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 5),
+                                              child: Column(
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      Text(
+                                                        itemController
+                                                            .cartList[index]
+                                                            .productname,
                                                         style: const TextStyle(
-                                                            fontSize: 18)),
-                                                  ],
-                                                )
-                                              ],
-                                            ),
-                                            const SizedBox(
-                                              height: 5,
-                                            ),
-                                            Row(
-                                              children: [
-                                                Container(
-                                                    child: Expanded(
-                                                  child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment.end,
-                                                      children: [
-                                                        // SizedBox(width: 50,),
-                                                        Container(
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        10),
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w400),
+                                                      ),
+                                                      const Spacer(),
+                                                      IconButton(
+                                                        onPressed: () {
+                                                          itemController
+                                                              .deleteProduct(
+                                                                  itemController
+                                                                      .cartList[
+                                                                          index]
+                                                                      .id);
+                                                        },
+                                                        icon: const ImageIcon(
+                                                          AssetImage(
+                                                            'assets/icons/delete.png',
                                                           ),
-                                                          height: 20,
-                                                          width: 60,
-                                                          child: Row(
+                                                          size: 18,
+                                                          color:
+                                                              Color(0xff911f2a),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      Text(
+                                                        itemController
+                                                            .cartList[index]
+                                                            .productDescription,
+                                                        style: const TextStyle(
+                                                            fontSize: 15,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w400),
+                                                      )
+                                                    ],
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 5,
+                                                  ),
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      const Text(
+                                                        'Price',
+                                                        style: TextStyle(
+                                                            fontSize: 15,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          Image.asset(
+                                                            'assets/icons/rupee-indian.png',
+                                                            width: 15,
+                                                          ),
+                                                          Text(
+                                                              "${itemController.cartList[index].productPrice}",
+                                                              // (price * quantity).toString(),
+                                                              style:
+                                                                  const TextStyle(
+                                                                      fontSize:
+                                                                          18)),
+                                                        ],
+                                                      )
+                                                    ],
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 5,
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      Container(
+                                                          child: Expanded(
+                                                        child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .end,
                                                             children: [
+                                                              // SizedBox(width: 50,),
                                                               Container(
                                                                 decoration:
                                                                     BoxDecoration(
@@ -200,107 +210,108 @@ class AccountCart extends StatelessWidget {
                                                                       BorderRadius
                                                                           .circular(
                                                                               10),
-                                                                  color: const Color(
-                                                                      0xff911f2a),
                                                                 ),
-                                                                width: 20,
                                                                 height: 20,
-                                                                child: Center(
-                                                                  child:
-                                                                      IconButton(
-                                                                    onPressed:
-                                                                        () {
-                                                                      itemController.decrementQuantity(
-                                                                          itemController
-                                                                              .cartList[
-                                                                                  index]
-                                                                              .id,
-                                                                          itemController
-                                                                              .cartList[index]
-                                                                              .count);
-                                                                    },
-                                                                    icon:
-                                                                        const ImageIcon(
-                                                                      AssetImage(
-                                                                        'assets/icons/minus-sign.png',
+                                                                width: 60,
+                                                                child: Row(
+                                                                  children: [
+                                                                    Container(
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(10),
+                                                                        color: const Color(
+                                                                            0xff911f2a),
                                                                       ),
-                                                                      size: 20,
+                                                                      width: 20,
+                                                                      height:
+                                                                          20,
+                                                                      child:
+                                                                          Center(
+                                                                        child:
+                                                                            IconButton(
+                                                                          onPressed:
+                                                                              () {
+                                                                            itemController.decrementQuantity(itemController.cartList[index].id,
+                                                                                itemController.cartList[index].count);
+                                                                          },
+                                                                          icon:
+                                                                              const ImageIcon(
+                                                                            AssetImage(
+                                                                              'assets/icons/minus-sign.png',
+                                                                            ),
+                                                                            size:
+                                                                                20,
+                                                                            color:
+                                                                                Colors.white,
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                    Container(
                                                                       color: Colors
                                                                           .white,
+                                                                      width: 20,
+                                                                      height:
+                                                                          20,
+                                                                      child: Center(
+                                                                          child: Text(
+                                                                              "${itemController.cartList[index].count}",
+                                                                              style: const TextStyle(fontSize: 15))),
                                                                     ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              Container(
-                                                                color: Colors
-                                                                    .white,
-                                                                width: 20,
-                                                                height: 20,
-                                                                child: Center(
-                                                                    child: Text(
-                                                                        "${itemController.cartList[index].count}",
-                                                                        style: const TextStyle(
-                                                                            fontSize:
-                                                                                15))),
-                                                              ),
-                                                              Container(
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              10),
-                                                                  color: const Color(
-                                                                      0xff3C8A3C),
-                                                                ),
-                                                                width: 20,
-                                                                height: 20,
-                                                                child: Center(
-                                                                  child:
-                                                                      IconButton(
-                                                                    onPressed:
-                                                                        () {
-                                                                      itemController.incrementQuantity(
-                                                                          itemController
-                                                                              .cartList[
-                                                                                  index]
-                                                                              .id,
-                                                                          itemController
-                                                                              .cartList[index]
-                                                                              .count);
-                                                                    },
-                                                                    icon:
-                                                                        const ImageIcon(
-                                                                      AssetImage(
-                                                                        'assets/icons/plus.png',
+                                                                    Container(
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(10),
+                                                                        color: const Color(
+                                                                            0xff3C8A3C),
                                                                       ),
-                                                                      size: 20,
-                                                                      color: Colors
-                                                                          .white,
-                                                                    ),
-                                                                  ),
+                                                                      width: 20,
+                                                                      height:
+                                                                          20,
+                                                                      child:
+                                                                          Center(
+                                                                        child:
+                                                                            IconButton(
+                                                                          onPressed:
+                                                                              () {
+                                                                            itemController.incrementQuantity(itemController.cartList[index].id,
+                                                                                itemController.cartList[index].count);
+                                                                          },
+                                                                          icon:
+                                                                              const ImageIcon(
+                                                                            AssetImage(
+                                                                              'assets/icons/plus.png',
+                                                                            ),
+                                                                            size:
+                                                                                20,
+                                                                            color:
+                                                                                Colors.white,
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    )
+                                                                  ],
                                                                 ),
                                                               )
-                                                            ],
-                                                          ),
-                                                        )
-                                                      ]),
-                                                )),
-                                              ],
+                                                            ]),
+                                                      )),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 5,
+                                                  ),
+                                                  // Divider(
+                                                  //   height: 2,
+                                                  //   thickness: 1.5,
+                                                  // )
+                                                ],
+                                              ),
                                             ),
-                                            const SizedBox(
-                                              height: 5,
-                                            ),
-                                            // Divider(
-                                            //   height: 2,
-                                            //   thickness: 1.5,
-                                            // )
-                                          ],
-                                        ),
+                                          );
+                                        },
                                       ),
-                                    );
-                                  },
-                                ),
                               ),
                             ),
                           ]),
@@ -367,7 +378,9 @@ class AccountCart extends StatelessWidget {
                                         width: 15,
                                       ),
                                       Text(
-                                          "${cartController.subTotal + cartController.dlcharge}",
+                                          cartController.subTotal == 0
+                                              ? "0"
+                                              : "${cartController.subTotal + cartController.dlcharge}",
                                           style: const TextStyle(fontSize: 18)),
                                       SizedBox(
                                         width: Width * 0.02,
@@ -392,12 +405,30 @@ class AccountCart extends StatelessWidget {
                                 width: Width - 20,
                                 child: ElevatedButton(
                                     onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => Payment()),
-                                      );
+                                      if (itemController.subTotal == 0) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(const SnackBar(
+                                                content:
+                                                    Text('Choose Something')));
+                                      } else {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => Payment(
+                                                    subtotal:
+                                                        cartController.subTotal,
+                                                    total: cartController
+                                                            .subTotal +
+                                                        cartController.dlcharge,
+                                                  )),
+                                        );
+                                      }
                                     },
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor:
+                                            itemController.subTotal == 0
+                                                ? Colors.grey
+                                                : const Color(0xff3C8A3C)),
                                     child: const Text(
                                       'Proceed to checkout',
                                       style: TextStyle(
@@ -405,10 +436,7 @@ class AccountCart extends StatelessWidget {
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white,
                                       ),
-                                    ),
-                                    style: ElevatedButton.styleFrom(
-                                        backgroundColor:
-                                            const Color(0xff3C8A3C))),
+                                    )),
                               ),
                               SizedBox(
                                 height: Hieght * 0.02,

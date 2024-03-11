@@ -1,27 +1,22 @@
+import 'package:alridafrieds/controller/delivery_boy_controller.dart';
 import 'package:alridafrieds/deliveryboy_app/Dashboard.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class DlSignin extends StatefulWidget {
-  const DlSignin({Key? key}) : super(key: key);
-
-  @override
-  State<DlSignin> createState() => _SigninState();
-}
-
-class _SigninState extends State<DlSignin> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
+class DlSignin extends StatelessWidget {
+  const DlSignin({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final formKey = GlobalKey<FormState>();
+    final loginController = Provider.of<DeliveryBoyController>(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
         color: const Color(0xfff2b45e),
         child: SafeArea(
           child: Form(
-            key: _formKey,
+            key: formKey,
             child: Column(
               children: [
                 const Padding(
@@ -50,7 +45,7 @@ class _SigninState extends State<DlSignin> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: TextFormField(
-                    controller: _emailController,
+                    controller: loginController.loginemailController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter an email';
@@ -90,7 +85,7 @@ class _SigninState extends State<DlSignin> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: TextFormField(
-                    controller: _passwordController,
+                    controller: loginController.loginpasswordController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter password';
@@ -122,25 +117,31 @@ class _SigninState extends State<DlSignin> {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const Dashboard(),
-                          ));
+                        if (formKey.currentState!.validate()) {
+                          loginController.deliveryBoyLogin(
+                              loginController.loginemailController.text,
+                              loginController.loginpasswordController.text,
+                              context);
+                          // Navigator.of(context).push(MaterialPageRoute(
+                          //   builder: (context) => const Dashboard(),
+                          // ));
                           // Navigator.push(
                           //   context,
                           //   MaterialPageRoute(builder: (context) => Dashboard()),
                           // );
                         } // Access _emailController.text and _passwordController.text for user input
                       },
+
+                      
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.black,
+                      ),
                       child: const Text(
                         'Sign in',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
                             color: Colors.white),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.black,
                       ),
                     ),
                   ),

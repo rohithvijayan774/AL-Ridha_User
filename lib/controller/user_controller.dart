@@ -1,5 +1,7 @@
 import 'package:alridafrieds/models/cart_model.dart';
+import 'package:alridafrieds/models/order_model.dart';
 import 'package:alridafrieds/models/user_model.dart';
+import 'package:alridafrieds/user/accounts/order%20placed.dart';
 import 'package:alridafrieds/user/auth/LoginSignup.dart';
 import 'package:alridafrieds/user/main/bottom%20navigation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -128,9 +130,14 @@ class UserController extends ChangeNotifier {
           userName: snapshot['userName'],
           userEmail: snapshot['userEmail'],
           userNumber: snapshot['userNumber'],
-          userAddress: snapshot['userAddress'],
+          userAddress: snapshot['userAddress'] ?? '',
         );
         _uid = userModel.userID;
+
+        editnameController.text = userModel.userName;
+        editemailController.text = userModel.userEmail;
+        editmobilenumberController.text = userModel.userNumber.toString();
+        editaddressController.text = userModel.userAddress!;
       });
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -285,5 +292,156 @@ class UserController extends ChangeNotifier {
           .update({'count': count});
       notifyListeners();
     }
+  }
+
+  Future deleteProduct(String itemid) async {
+    try {
+      await firebaseFirestore
+          .collection('users')
+          .doc(firebaseAuth.currentUser!.uid)
+          .collection('cart')
+          .doc(itemid)
+          .delete();
+      notifyListeners();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  final TextEditingController editnameController = TextEditingController();
+  final TextEditingController editemailController = TextEditingController();
+  final TextEditingController editmobilenumberController =
+      TextEditingController();
+  final TextEditingController editaddressController = TextEditingController();
+
+  Future updateProfile(
+    String userName,
+    String userEmail,
+    int userNumber,
+    String userAddress,
+  ) async {
+    try {
+      firebaseFirestore
+          .collection('users')
+          .doc(firebaseAuth.currentUser!.uid)
+          .update({
+        'userName': userName,
+        'userEmail': userEmail,
+        'userNumber': userNumber,
+        'userAddress': userAddress,
+      });
+      userModel.userName = userName;
+      userModel.userEmail = userEmail;
+      userModel.userNumber = userNumber;
+      userModel.userAddress = userAddress;
+      notifyListeners();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  OrderModel? _orderModel;
+  OrderModel get orderModel => _orderModel!;
+
+  Future placeOrder(
+    int amount,
+    String userName,
+    int userNumber,
+    String userAddress,
+    context,
+  ) async {
+    try {
+      final userOrderDoc = firebaseFirestore.collection('orders').doc();
+      _orderModel = OrderModel(
+          orderid: userOrderDoc.id,
+          userid: firebaseAuth.currentUser!.uid,
+          orderPrice: amount,
+          userName: userName,
+          userAddress: userAddress,
+          userNumber: userNumber,
+          orderedItems: cartList,
+          status: 'pending');
+      await userOrderDoc.set(_orderModel!.toMap());
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => const OrderPlaced(),
+      ));
+      notifyListeners();
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('OOps... Something went wrong : $e')));
+    }
+  }
+
+  List<OrderModel> ordersList = [];
+  OrderModel? orders;
+
+  Future fetchOrders(String userid) async {
+    try {
+      ordersList.clear();
+      final orderRef = firebaseFirestore
+          .collection('orders')
+          .where('userid', isEqualTo: userid);
+      final orderSnapshot = await orderRef.get();
+
+      for (var doc in orderSnapshot.docs) {
+        String orderid = doc['orderid'];
+        String userid = doc['userid'];
+        int orderPrice = doc['orderPrice'];
+        String userName = doc['userName'];
+        String userAddress = doc['userAddress'];
+        int userNumber = doc['userNumber'];
+        String status = doc['status'];
+
+        orders = OrderModel(
+            orderid: orderid,
+            userid: userid,
+            orderPrice: orderPrice,
+            userName: userName,
+            userAddress: userAddress,
+            userNumber: userNumber,
+            orderedItems: cartList,
+            status: status);
+
+        ordersList.add(orders!);
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  //   Future clearCart(String itemid) async {
+  //   try {
+  //     await firebaseFirestore
+  //         .collection('users')
+  //         .doc(firebaseAuth.currentUser!.uid)
+  //         .collection('cart')
+  //         .doc(itemid)
+  //         .delete();
+  //     notifyListeners();
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
+
+  Future<void> clearCart() async {
+    // Reference to the Firestore collection
+    CollectionReference collectionReference = FirebaseFirestore.instance
+        .collection('users')
+        .doc(firebaseAuth.currentUser!.uid)
+        .collection('cart');
+
+    // Get all documents in the collection
+    QuerySnapshot querySnapshot = await collectionReference.get();
+
+    // Create a batch
+    WriteBatch batch = FirebaseFirestore.instance.batch();
+
+    // Iterate through each document and add delete operation to the batch
+    querySnapshot.docs.forEach((document) {
+      batch.delete(document.reference);
+    });
+
+    // Commit the batch
+    await batch.commit();
   }
 }

@@ -14,7 +14,7 @@ class Drinks extends StatelessWidget {
     return Consumer<UserController>(builder: (context, drinksController, _) {
       return FutureBuilder(
           future: drinksController.fetchProducts(
-              'drinks', drinksController.drinksList),
+              'Drinks', drinksController.drinksList),
           builder: (context, snapshot) {
             return snapshot.connectionState == ConnectionState.waiting
                 ? const Center(

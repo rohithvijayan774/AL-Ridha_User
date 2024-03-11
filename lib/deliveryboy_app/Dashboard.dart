@@ -17,11 +17,11 @@ class Dashboard extends StatefulWidget {
 class _BottomnavigationState extends State<Dashboard> {
   int _selectedCurrentIndex = 0;
   final _pages = [
-    const DlHome(),
+    // const DlHome(),
     const Order(),
-    const Progress(),
+    // const Progress(),
     const Delivered(),
-    const Wallet(),
+    // const Wallet(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -31,17 +31,17 @@ class _BottomnavigationState extends State<Dashboard> {
         color: const Color(0xff911f2a),
         animationDuration: const Duration(milliseconds: 400),
         items: [
-          CurvedNavigationBarItem(
-              child: Image.asset(
-                'assets/icons/home.png',
-                width: 25,
-                height: 25,
-                color: Colors.white,
-              ),
-              // child: Icon(Icons.home_outlined,color: Colors.white,),
-              label: 'Home',
-              labelStyle:
-                  const TextStyle(fontFamily: 'poppins', color: Colors.white)),
+          // CurvedNavigationBarItem(
+          //     child: Image.asset(
+          //       'assets/icons/home.png',
+          //       width: 25,
+          //       height: 25,
+          //       color: Colors.white,
+          //     ),
+          //     // child: Icon(Icons.home_outlined,color: Colors.white,),
+          //     label: 'Home',
+          //     labelStyle:
+          //         const TextStyle(fontFamily: 'poppins', color: Colors.white)),
           CurvedNavigationBarItem(
               child: Image.asset(
                 'assets/delivryboy/icon/order.png',
@@ -53,17 +53,17 @@ class _BottomnavigationState extends State<Dashboard> {
               label: 'Orders',
               labelStyle:
                   const TextStyle(fontFamily: 'poppins', color: Colors.white)),
-          CurvedNavigationBarItem(
-              child: Image.asset(
-                'assets/delivryboy/icon/progress.png',
-                width: 25,
-                height: 25,
-                color: Colors.white,
-              ),
-              // child: Icon(Icons.home_outlined,color: Colors.white,),
-              label: 'Progress',
-              labelStyle:
-                  const TextStyle(fontFamily: 'poppins', color: Colors.white)),
+          // CurvedNavigationBarItem(
+          //     child: Image.asset(
+          //       'assets/delivryboy/icon/progress.png',
+          //       width: 25,
+          //       height: 25,
+          //       color: Colors.white,
+          //     ),
+          //     // child: Icon(Icons.home_outlined,color: Colors.white,),
+          //     label: 'Progress',
+          //     labelStyle:
+          //         const TextStyle(fontFamily: 'poppins', color: Colors.white)),
           CurvedNavigationBarItem(
               child: Image.asset(
                 'assets/delivryboy/icon/delivered.png',
@@ -75,17 +75,17 @@ class _BottomnavigationState extends State<Dashboard> {
               label: 'Delivered',
               labelStyle:
                   const TextStyle(fontFamily: 'poppins', color: Colors.white)),
-          CurvedNavigationBarItem(
-              child: Image.asset(
-                'assets/delivryboy/icon/wallet.png',
-                width: 25,
-                height: 25,
-                color: Colors.white,
-              ),
-              // child: Icon(Icons.home_outlined,color: Colors.white,),
-              label: 'Wallet',
-              labelStyle:
-                  const TextStyle(fontFamily: 'poppins', color: Colors.white)),
+          // CurvedNavigationBarItem(
+          //     child: Image.asset(
+          //       'assets/delivryboy/icon/wallet.png',
+          //       width: 25,
+          //       height: 25,
+          //       color: Colors.white,
+          //     ),
+          //     // child: Icon(Icons.home_outlined,color: Colors.white,),
+          //     label: 'Wallet',
+          //     labelStyle:
+          //         const TextStyle(fontFamily: 'poppins', color: Colors.white)),
         ],
 
         // color:Color(0xff911f2a),

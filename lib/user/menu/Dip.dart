@@ -13,7 +13,7 @@ class Dip extends StatelessWidget {
 
     return Consumer<UserController>(builder: (context, dipController, _) {
       return FutureBuilder(
-          future: dipController.fetchProducts("dip", dipController.dipList),
+          future: dipController.fetchProducts("Dip", dipController.dipList),
           builder: (context, snapshot) {
             return snapshot.connectionState == ConnectionState.waiting
                 ? const Center(
