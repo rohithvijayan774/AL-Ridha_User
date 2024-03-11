@@ -127,7 +127,7 @@ class _DeliveredState extends State<Delivered> {
                             Expanded(
                               child: Text(
                                 'Order No: ${deliveredCOntroller.ordersList[index].orderid}',
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
